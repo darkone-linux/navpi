@@ -119,12 +119,10 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1782731489,
-        "narHash": "sha256-aiXfjdoKJfA41mDsuMTdleicfFoMA3v7f3XA/rrZ8Xc=",
-        "owner": "darkone-linux",
-        "repo": "pypilot-nix",
-        "rev": "bab3fe2082e2fad56522190605ccd94c1fe52c80",
-        "type": "github"
+        "lastModified": 1782739887,
+        "narHash": "sha256-PPHPP+ey9eknfZTeETNfeudBOjROKKUMzkmjg1uVfhw=",
+        "path": "/home/darkone/src/navpi/navpi-nix",
+        "type": "path"
       },
       "original": {
         "owner": "darkone-linux",
