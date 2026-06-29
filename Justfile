@@ -188,6 +188,26 @@ status:
       git -C navpi-nix status -s
     fi
 
+# git push of both repos.
+[group('git')]
+push:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)" -eq 0 ]; then
+        echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi: nothing to push"
+    else
+        echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi:"
+        git push
+    fi
+    if [ -d navpi-nix ]; then
+        if [ "$(git -C navpi-nix rev-list --count @{u}..HEAD 2>/dev/null || echo 0)" -eq 0 ]; then
+            echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi-nix (distro clone): nothing to push"
+        else
+            echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi-nix (distro clone):"
+            git -C navpi-nix push
+        fi
+    fi
+
 # Commit both repos with the same message: distro first, re-pin, then navpi.
 [group('git')]
 commit msg:
