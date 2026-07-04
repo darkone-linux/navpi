@@ -28,7 +28,8 @@
   #   (plug-and-play + clock sync), and pypilot's serialprobe skips the port.
   # - AIS: add the receiver's ID to ais.autodetectIds → symlinked to the device
   #   signalk reads (this *replaces* the bench default; list every receiver).
-  # - Motor: set motor.vendorId/productId → /dev/pypilot_motor for the autopilot.
+  # - Motor: set motor.vendorId/productId → /dev/ttyOP_pilot for the autopilot
+  #   (USB motor only — the Pypilot HAT UART already provides this symlink).
   #
   # Default GPS below is the bench Prolific PL2303; swap for the boat's receiver.
   services.navigation.gps.vendorId = "067b";
