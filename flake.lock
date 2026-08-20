@@ -119,8 +119,8 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1787244323,
-        "narHash": "sha256-/aB4NezeYnMZ6DBCIz564S2zRqWryhY/NwwYEQDEBdA=",
+        "lastModified": 1787245639,
+        "narHash": "sha256-dJ8zv2yFwWVeYEJzdcxVC0Q7GTFCC2vKDUeCjoct/Cw=",
         "path": "/home/darkone/src/navpi/navpi-nix",
         "type": "path"
       },
