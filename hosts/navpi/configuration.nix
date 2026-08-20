@@ -2,7 +2,7 @@
 # consumes services.navigation.* (options come from pypilot-nix via mkHost →
 # common.nix); no module/package paths reach back into the distro.
 
-{ pkgs, ... }:
+{ ... }:
 
 {
   networking.hostName = "navpi";
@@ -14,10 +14,9 @@
   # Expose the Signal K hub to the boat network (chartplotters, tablets).
   services.navigation.signalk.openFirewall = true;
 
-  # Chartplotter desktop on the helm screen (labwc, always-on).
+  # Chartplotter desktop on the helm screen (labwc, always-on). The pypilot
+  # OpenCPN plugin comes along automatically (opencpn + pypilot both on).
   services.navigation.opencpn.enable = true;
-  services.navigation.opencpn.plugins = [ pkgs.opencpn-plugin-pypilot ];
-  services.navigation.opencpn.enabledPlugins = [ "libpypilot_pi.so" ];
   services.navigation.desktop.enable = true;
 
   # Pin USB gear by its `lsusb` ID (idVendor:idProduct, hex lowercase). Why per
