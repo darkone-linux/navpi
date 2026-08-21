@@ -144,8 +144,17 @@ apply host action="switch":
     #!/usr/bin/env bash
     set -euo pipefail
     echo "[ {{ CYAN }}NAV{{ NORMAL }} ] APPLY • {{ action }} {{ host }} ($(just pin) distro)..."
+    # Local actions produce a closure here and nothing else; handing them
+    # --target-host makes nixos-rebuild copy that closure to the host once it is
+    # built, so a plain compile needs the box powered on and reports failure
+    # when it is not -- after the build already succeeded.
+    remote=(--target-host "skipper@{{ host }}" --sudo)
+    case "{{ action }}" in
+      build | dry-build | build-vm | build-vm-with-bootloader) remote=() ;;
+    esac
+
     nixos-rebuild {{ action }} --flake ".#{{ host }}" \
-      --target-host "skipper@{{ host }}" --sudo \
+      "${remote[@]}" \
       --accept-flake-config
 
 # Free space on a host: collect garbage, then regenerate boot entries
