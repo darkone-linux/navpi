@@ -197,23 +197,28 @@ status:
       git -C navpi-nix status -s
     fi
 
-# git push of both repos.
+# git push of both repos, tags included.
 [group('git')]
 push:
     #!/usr/bin/env bash
     set -euo pipefail
+
+    # --follow-tags: `just bump` in the distro makes an annotated tag next to
+    # its release commit, and a plain push leaves it behind — the release then
+    # exists on the remote as an untagged commit. Only annotated tags reachable
+    # from what is pushed go along, so nothing unrelated leaks out.
     if [ "$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)" -eq 0 ]; then
         echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi: nothing to push"
     else
         echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi:"
-        git push
+        git push --follow-tags
     fi
     if [ -d navpi-nix ]; then
         if [ "$(git -C navpi-nix rev-list --count @{u}..HEAD 2>/dev/null || echo 0)" -eq 0 ]; then
             echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi-nix (distro clone): nothing to push"
         else
             echo "[ {{ CYAN }}NAV{{ NORMAL }} ] PUSH • navpi-nix (distro clone):"
-            git -C navpi-nix push
+            git -C navpi-nix push --follow-tags
         fi
     fi
 
